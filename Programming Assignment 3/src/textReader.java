@@ -31,31 +31,44 @@ public class textReader {
 			
 			
 		}
+		
+		scanner.reset();
+		
+		
+		System.out.println("TEST");
 		//Tests for invalid inputs
 
+		Scanner scanner2 = null;
+		try {
+			scanner2 = new Scanner(text);
+		} catch (FileNotFoundException e) {
+			System.out.println("This is not a valid File. Operation aborted");
+			e.printStackTrace();
+		}
+		
 		//Adds file inputs to arrays
-		while(scanner.hasNext()){
-			String tempWord = scanner.next();
+		while(scanner2.hasNext()){
+			String tempWord = scanner2.next();
 			int key = 0;
 			for (int j = 0; j < tempWord.length(); j++){
 				key += tempWord.charAt(j);
-				System.out.println(key);
+//				System.out.println(key);
 			}
 //			int temp = Math.abs(tempWord.hashCode());
 			notInHash: if(hashCodes[key] != null){
 				for(int i = 0; i<hashCodes[key].length(); i++){
 					if(tempWord.compareTo(( hashCodes[key].getNth(i)).stringData) == 0){
-						hashCodes[key].getNth(i).addPageToList(scanner.nextInt());
-//						break notInHash;
+						hashCodes[key].getNth(i).addPageToList(scanner2.nextInt());
+						break notInHash;
 					}
 				}
-				hashCodes[key].push(new Data(tempWord, scanner.nextInt()));
+				hashCodes[key].push(new Data(tempWord, scanner2.nextInt()));
 
 			}
 			else{
 				hashCodes[key] = new linkedList();
 				hashCodes[key].setHead(new Data(Integer.toString(key), 0));
-				hashCodes[key].push(new Data(tempWord, scanner.nextInt()));
+				hashCodes[key].push(new Data(tempWord, scanner2.nextInt()));
 			}
 		}
 	}
