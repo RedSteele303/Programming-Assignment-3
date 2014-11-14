@@ -8,7 +8,7 @@
 
 public class Node {
 	
-	private Object value;
+	private Data value;
 	private Node next;
 	private Node previous;
 
@@ -16,28 +16,22 @@ public class Node {
 	 * Constructors
 	 */
 	public Node(){
-		this(0, null);
+		this(null, null);
 	}
 
-	public Node(Object value){
+	public Node(Data value){
 		this(value, null);
 	}
 
-	public Node(Object value, Node next){
+	public Node(Data value, Node next){
 		this.value = value;
 		this.next = next;
-	}
-	
-	public Node(Object value, Node next, Node previous){
-		this.value = value;
-		this.next = next;
-		this.setPrevious(previous);
 	}
 
 	/**
 	 *Getters and Setters
 	 */
-	public void setValue(Object value){
+	public void setValue(Data value){
 		this.value = value;
 	}
 
@@ -45,7 +39,7 @@ public class Node {
 		this.next = next;
 	}
 
-	public Object getValue(){
+	public Data getValue(){
 		return value; 
 	}
 
@@ -59,6 +53,13 @@ public class Node {
 
 	public void setPrevious(Node previous) {
 		this.previous = previous;
+	}
+	
+	public boolean hasNext(){
+		if(this.next != null){
+			return true;
+		}
+		else return false;
 	}
 
 	/**

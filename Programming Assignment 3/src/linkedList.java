@@ -8,11 +8,6 @@ public class linkedList {
 	
 	private static Node head;
 
-	public static void main(String[] args){
-		linkedList list = new linkedList();
-		testMethods();
-	}
-
 	/**
 	 * Constructor
 	 */
@@ -26,7 +21,7 @@ public class linkedList {
 	 * @param  value - the value you want the head to have
 	 * 
 	 */
-	public linkedList(int value){
+	public linkedList(Data value){
 		this.head = new Node(value);
 	}
 
@@ -36,6 +31,10 @@ public class linkedList {
 	public static Node getHead(){
 		return head;
 	}
+	
+	public void setHead(Data data){
+		this.head = new Node(data);
+	}
 
 	/**
 	 * push
@@ -43,9 +42,13 @@ public class linkedList {
 	 *
 	 * @param  object - the value you want the new Node to hold
 	 */
-	public static void push(Object object){
-		Node next = new Node(object, head.getNext());
-		head.setNext(next);
+	public static void push(Data object){
+		Node next = new Node(object);
+		Node now = head;
+		while(now.hasNext()){
+			now = now.getNext();
+		}
+		now.setNext(next);
 	}
 
 	/**
@@ -57,27 +60,13 @@ public class linkedList {
 	public static int length(){
 		Node now = head;
 		int length = 0;
-		while(now.getNext() != null){
+		while(now.hasNext()){
 			now = now.getNext();
 			length++;
 		}
 		return length;
 	}
 
-	/**
-	 * buildOneTwoThree
-	 * 		set values of this list {1,2,3} and overwrite any previous values
-	 * 		
-	 */
-	public static void buildOneTwoThree(){
-		Node now = head;
-		for(int i = 3; i >= 1; i--){
-			push(i);
-			now = now.getNext();
-		}
-		now = head.getNext().getNext().getNext();
-		now.setNext(null);
-	}
 
 	/**
 	 * print
@@ -124,8 +113,8 @@ public class linkedList {
 	 * @return Object
 	 * 
 	 */
-	public static Object getNth(int n){
-		Object value;
+	public static Data getNth(int n){
+		Data value;
 		Node now = head.getNext();
 		for(int i = 0; i<n; i++){
 			now = now.getNext();
@@ -185,7 +174,7 @@ public class linkedList {
 	 * @param value - value that the user wants inserted into the linkedList
 	 * @param  n - index that you want the value to be inserted into
 	 */
-	public static void insertNth(int value, int index){
+	public static void insertNth(Data value, int index){
 		Node n = new Node(value);
 		Node now = head;
 		if(index == 0){
@@ -211,7 +200,7 @@ public class linkedList {
 	 * @param  value - value of the node you want to insert
 	 * 
 	 */
-	public static void sortedInsert(int value){
+	public static void sortedInsert(Data value){
 		Node now = head.getNext();
 		int index = 0;
 		boolean run = true;
@@ -316,87 +305,5 @@ public class linkedList {
 		return halves;
 	}	
 
-	/**
-	* sortedMerge
-	*		takes in 2 LinkedLists and returns the result of merging the 2 lists and organizing the result in ascending order
-	*
-	*@param a - the first list you want to merge
-	*@param b - the second list you want to merge
-	*
-	**/
-	public static void sortedMerge(linkedList a, linkedList b){
-	
-	}
 
-
-	/**
-	 * testMethods
-	 * 		runs and prints the results of all the methods for debugging purposes
-	 *
-	 */
-	public static void testMethods(){
-		//test head
-		Node now = head;
-		System.out.println("Head: " + head);
-
-		//test length
-		System.out.println("Initial Length: " + length());
-
-		//test push
-		push(21);
-		System.out.println("New Node that was just created by push: " + head.getNext());
-		System.out.println("New length with one node: " + length());
-
-		//test buildOneTwoThree
-		buildOneTwoThree();
-		for(int i = 1; i <= 3; i++){
-			now = now.getNext();
-			System.out.println("Info about Node " + i + " in the linked list after running buildOneTwoThree: " + now + "  ");
-		}
-
-		//test count
-		System.out.println("number of ones in linkedList(count test): " + count(1));
-
-		//test getNth
-		System.out.println("value of node at index 2(getNth test): " + getNth(2));
-
-		//test print
-		print();
-
-		//test empty
-		empty();
-		System.out.print("empty test: ");
-		print();
-		push(42);
-
-		//test pop
-		System.out.println("Head reference before pop: " + head.getNext());
-		System.out.println("Value of the first element in the list(pop test): " + pop());
-		System.out.println("Head reference after pop: " + head.getNext());
-		push(12);
-		push(123);
-		push(45);
-		push(67);
-
-		//test linearSearch
-		System.out.println("Index of the number 123(linearSearch test, should be 2): " + linearSearch(123));
-
-		//test insertNth
-		insertNth(4,2);
-		System.out.println("value of node at index 2 after insertNth(insertNth test): " + getNth(2));
-		print();
-
-		//test sortedInsert
-		System.out.println("sortedInsert test; the linkedList should go 4,9,10,12,13,13,15,21");
-		empty();
-		push(21);
-		push(15);
-		push(13);
-		push(13);
-		push(12);
-		push(9);
-		push(4);
-		sortedInsert(10);
-		print();
-	}
 }
